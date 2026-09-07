@@ -7,6 +7,7 @@
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
+#include <arpa/inet.h>
 
 #define SOC_BUFFER_SIZE 0x100000
 #define TEST_PORT 8001
