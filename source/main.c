@@ -97,6 +97,29 @@ int main(int argc, char **argv)
     printf("Test port 8001 from Termux NOW.\n");
     printf("Do not press START yet.\n");
 
+    printf("\nWaiting in accept()...\n");
+
+    struct sockaddr_in client_addr;
+    memset(&client_addr, 0, sizeof(client_addr));
+    socklen_t client_len = sizeof(client_addr);
+
+    errno = 0;
+    int client = accept(
+        server,
+        (struct sockaddr *)&client_addr,
+        &client_len
+    );
+
+    printf("accept: %d\n", client);
+    printf("errno:  %d (%s)\n", errno, strerror(errno));
+
+    if (client >= 0) {
+        printf("\n*** ACCEPT SUCCESS! ***\n");
+        closesocket(client);
+    } else {
+        printf("\n*** ACCEPT FAILED! ***\n");
+    }
+
     while (aptMainLoop()) {
         hidScanInput();
 
