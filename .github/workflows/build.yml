@@ -1,0 +1,27 @@
+name: Build ArloSocketTest
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    container:
+      image: devkitpro/devkitarm:latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Build ArloSocketTest
+        run: make
+
+      - name: Upload Arlo3DS
+        uses: actions/upload-artifact@v4
+        with:
+          name: ArloSocketTest
+          path: ArloSocketTest.3dsx
